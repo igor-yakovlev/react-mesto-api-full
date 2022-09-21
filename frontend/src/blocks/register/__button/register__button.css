@@ -1,0 +1,16 @@
+.register__button {
+  margin: 0;
+  background: #FFFFFF;
+  padding: 14px 84px;
+  margin-top: 186px;
+  width: 100%;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 400px) {
+  .register__button {
+    padding: 14px 35px;;
+  }
+}

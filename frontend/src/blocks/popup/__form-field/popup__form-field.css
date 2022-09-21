@@ -1,0 +1,10 @@
+.popup__form-field {
+  margin: 0;
+  padding: 0;
+  max-width: 358px;
+  min-height: 44px;
+  margin-bottom: 13px;
+  text-overflow: ellipsis;
+  white-space: wrap;
+  overflow: hidden;
+}

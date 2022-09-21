@@ -1,0 +1,9 @@
+.register__form-set {
+  margin: 0 auto;
+  padding: 0;
+  max-width: 358px;
+  border: none;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

@@ -1,0 +1,14 @@
+.register {
+  margin: 0;
+  padding: 0;
+  flex: 1 1 auto;
+}
+
+
+
+@media screen and (max-width: 400px) {
+  .register {
+    margin: 0;
+    padding: 28px 27px 0 27px;
+  }
+}
