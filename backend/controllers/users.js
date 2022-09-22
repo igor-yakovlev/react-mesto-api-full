@@ -79,7 +79,7 @@ const login = async (req, res, next) => {
         httpOnly: true,
         sameSite: true,
       });
-      res.status(200).send({ _id: data._id });
+      res.status(200).send({ _id: data._id, token });
     } else {
       throw new UnauthorizedError('Неправильные почта или пароль');
     }
@@ -91,7 +91,7 @@ const login = async (req, res, next) => {
 const getUserInfo = async (req, res, next) => {
   try {
     const data = await user.findById(req.user._id);
-    res.status(200).send({ data });
+    res.status(200).send(data);
   } catch (e) {
     next(e);
   }
@@ -108,7 +108,7 @@ const updateUser = async (req, res, next) => {
     if (!data) {
       throw new NotFoundError('Пользователь с таким _id не найден');
     }
-    res.send({ data });
+    res.send(data);
   } catch (e) {
     if (e.name === 'ValidationError') {
       next(new BadRequestError(e.message));

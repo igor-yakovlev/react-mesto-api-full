@@ -12,8 +12,8 @@ function Main({
   onCardDelete,
 }) {
   const user = React.useContext(CurrentUserContext);
-
-  const cardsElements = cards.map((card) => (
+  const cardsElements = cards.map((card) => {
+  return (
     <li className="card" key={card._id}>
       <Card
         onCardClick={onCardClick}
@@ -22,7 +22,10 @@ function Main({
         card={card}
       />
     </li>
-  ));
+    
+  )
+}
+  );
 
   return (
     <main className="main">

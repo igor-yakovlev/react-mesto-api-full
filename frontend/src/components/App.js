@@ -39,7 +39,7 @@ function App() {
         .then((res) => {
           if (res) {
             setLoggedIn(true);
-            setEmail(res.data.email);
+            setEmail(res.email);
             history.push("/");
           } else {
             setLoggedIn(false);
@@ -116,13 +116,13 @@ function App() {
   };
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => {
+      return i === currentUser._id
+    });
     api
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
+        setCards(cards.map((c) => (c._id === card._id ? newCard : c)));
       })
       .catch((err) => {
         console.log(err);
@@ -193,7 +193,6 @@ function App() {
     setEmail("");
     history.push("/sign-in");
   };
-
   return (
     <div className="page page_theme_black">
       <CurrentUserContext.Provider value={currentUser}>

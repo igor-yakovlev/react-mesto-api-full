@@ -13,7 +13,8 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this.baseUrl}/cards`, {
-      headers: this.headers
+      headers: this.headers,
+      credentials: "include",
     })
     .then(this._checkResponse)
   }
@@ -22,6 +23,7 @@ class Api {
     return fetch(`${this.baseUrl}/cards`, {
       method: 'POST',
       headers: this.headers,
+      credentials: "include",
       body: JSON.stringify({
         name: data.name,
         link: data.link
@@ -34,6 +36,7 @@ class Api {
     return fetch(`${this.baseUrl}/cards/${id}`, {
       method: 'DELETE',
       headers: this.headers,
+      credentials: "include",
     })
     .then(this._checkResponse)
   }
@@ -43,12 +46,14 @@ class Api {
       return fetch(`${this.baseUrl}/cards/${id}/likes`, {
         method: 'DELETE',
         headers: this.headers,
+        credentials: "include",
       })
       .then(this._checkResponse)
     } else {
       return fetch(`${this.baseUrl}/cards/${id}/likes`, {
         method: 'PUT',
         headers: this.headers,
+        credentials: "include",
       })
       .then(this._checkResponse)
     }
@@ -56,7 +61,8 @@ class Api {
 
   getUser() {
     return fetch(`${this.baseUrl}/users/me`, {
-      headers: this.headers
+      headers: this.headers,
+      credentials: "include",
     })
     .then(this._checkResponse)
   }
@@ -65,6 +71,7 @@ class Api {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
+      credentials: "include",
       body: JSON.stringify({
         name: data.name,
         about: data.about
@@ -77,6 +84,7 @@ class Api {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this.headers,
+      credentials: "include",
       body: JSON.stringify({
         avatar: avatar,
       })
@@ -86,11 +94,10 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-43',
+  baseUrl: 'http://localhost:3000',
   headers: {
-    authorization: '08cab31c-489e-4687-b8a9-d71a23c1df31',
     'Content-type': 'application/json'
-  }
+  },
 });
 
 export default api;

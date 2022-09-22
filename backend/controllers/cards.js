@@ -16,7 +16,7 @@ const createCard = async (req, res, next) => {
   try {
     const { name, link } = req.body;
     const data = await card.create({ name, link, owner: req.user._id });
-    res.status(201).send({ data });
+    res.status(201).send(data);
   } catch (e) {
     if (e.name === 'ValidationError') {
       next(new BadRequestError(e.message));
@@ -36,7 +36,7 @@ const deleteCard = async (req, res, next) => {
     if (!data) {
       throw new NotFoundError('Передан несуществующий _id карточки');
     }
-    res.send({ data });
+    res.send(data);
   } catch (e) {
     if (e.name === 'TypeError') {
       next(new NotFoundError('Карточка с указанным _id не найдена'));
@@ -60,7 +60,7 @@ const likeCard = async (req, res, next) => {
     if (!data) {
       throw new NotFoundError('Передан несуществующий _id карточки');
     }
-    res.send({ data });
+    res.send(data);
   } catch (e) {
     if (e.name === 'ValidationError') {
       next(new BadRequestError('Переданы некорректные данные для постановки лайка'));
@@ -84,7 +84,7 @@ const dislikeCard = async (req, res, next) => {
     if (!data) {
       throw new NotFoundError('Передан несуществующий _id карточки');
     }
-    res.send({ data });
+    res.send(data);
   } catch (e) {
     if (e.name === 'ValidationError') {
       next(new BadRequestError('Переданы некорректные данные для снятия лайка'));
