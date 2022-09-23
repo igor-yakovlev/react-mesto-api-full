@@ -6,6 +6,8 @@ const BadRequestError = require('../errors/bad-request-err');
 const user = require('../models/user');
 const ConflictError = require('../errors/conflict-err');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 const getUser = async (req, res, next) => {
   try {
     const data = await user.find();
@@ -71,7 +73,7 @@ const login = async (req, res, next) => {
     }
     const comparePasswords = await bcrypt.compare(password, data.password);
     if (comparePasswords) {
-      const token = jwt.sign({ _id: data._id }, 'secret-word', {
+      const token = jwt.sign({ _id: data._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', {
         expiresIn: '7d',
       });
       res.cookie('jwt', token, {
@@ -79,7 +81,7 @@ const login = async (req, res, next) => {
         httpOnly: true,
         sameSite: true,
       });
-      res.status(200).send({ _id: data._id, token });
+      res.status(200).send({ _id: data, token });
     } else {
       throw new UnauthorizedError('Неправильные почта или пароль');
     }

@@ -9,6 +9,7 @@ const cardRouter = require('./routes/cards');
 const NotFoundError = require('./errors/not-found-err');
 const error = require('./middlewares/error');
 const { errorLogger, requestLogger } = require('./middlewares/logger');
+require('dotenv').config();
 
 const { PORT = 3000 } = process.env;
 
