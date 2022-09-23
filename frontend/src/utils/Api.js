@@ -94,7 +94,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'http://localhost:4000',
+  baseUrl: 'https://yakovlev.nomoredomains.sbs',
   headers: {
     'Content-type': 'application/json'
   },
