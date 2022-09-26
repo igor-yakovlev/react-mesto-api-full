@@ -5,5 +5,7 @@
 
 # Ссылки на проект
   IP 158.160.7.155
+
   Frontend https://igor.yakovlev.nomorepartiesxyz.ru
+  
   Backend https://yakovlev.nomoredomains.sbs
