@@ -36,7 +36,6 @@ const shema = mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: [6, "Должно быть больше 6 символов, сейчас вы ввели '{VALUE}'"],
   },
 });
 

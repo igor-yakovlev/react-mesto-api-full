@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -9,7 +10,7 @@ const cardRouter = require('./routes/cards');
 const NotFoundError = require('./errors/not-found-err');
 const error = require('./middlewares/error');
 const { errorLogger, requestLogger } = require('./middlewares/logger');
-require('dotenv').config();
+
 
 const { PORT = 3000 } = process.env;
 
@@ -34,11 +35,11 @@ app.get('/crash-test', () => {
 app.use(userRouter);
 app.use(cardRouter);
 
-app.use(errorLogger);
-
 app.use('*', (req, res, next) => {
   next(new NotFoundError('Такого запроса нет'));
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 app.use(error);

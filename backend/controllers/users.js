@@ -82,7 +82,7 @@ const login = async (req, res, next) => {
         sameSite: 'none',
         secure: true,
       });
-      res.status(200).send({ _id: data, token });
+      res.send({ _id: data, token });
     } else {
       throw new UnauthorizedError('Неправильные почта или пароль');
     }

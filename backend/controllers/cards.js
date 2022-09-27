@@ -28,20 +28,16 @@ const createCard = async (req, res, next) => {
 
 const deleteCard = async (req, res, next) => {
   try {
-    const currentCard = await card.findById(req.params.cardId);
-    if (req.user._id !== currentCard.owner.toString()) {
-      throw new ForbiddenError('Отказано в доступе');
-    }
     const data = await card.findByIdAndRemove(req.params.cardId);
     if (!data) {
       throw new NotFoundError('Передан несуществующий _id карточки');
     }
+    const currentCard = await card.findById(req.params.cardId);
+    if (req.user._id !== currentCard.owner.toString()) {
+      throw new ForbiddenError('Отказано в доступе');
+    }
     res.send(data);
   } catch (e) {
-    if (e.name === 'TypeError') {
-      next(new NotFoundError('Карточка с указанным _id не найдена'));
-      return;
-    }
     if (e.name === 'CastError') {
       next(new NotFoundError('Карточка с указанным _id не найдена'));
       return;
@@ -91,10 +87,6 @@ const dislikeCard = async (req, res, next) => {
       return;
     }
     if (e.name === 'CastError') {
-      next(new NotFoundError('Передан несуществующий _id карточки'));
-      return;
-    }
-    if (e.name === 'TypeError') {
       next(new NotFoundError('Передан несуществующий _id карточки'));
       return;
     }

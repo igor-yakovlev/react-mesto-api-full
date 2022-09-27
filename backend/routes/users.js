@@ -2,6 +2,7 @@ const { celebrate, Joi } = require('celebrate');
 const express = require('express');
 const { ObjectId } = require('mongoose').Types;
 const auth = require('../middlewares/auth');
+const regExpLink = require('../utils/constants');
 
 const {
   getUser,
@@ -17,16 +18,16 @@ const userRouter = express.Router();
 userRouter.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(6),
+    password: Joi.string().required(),
   }),
 }), login);
 userRouter.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-    avatar: Joi.string().pattern(/https?:\/\/(w{3})?[a-z0-9-]+\.[a-z0-9\S]{2,}/),
+    avatar: Joi.string().pattern(regExpLink),
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(6),
+    password: Joi.string().required(),
   }),
 }), createUser);
 userRouter.use(auth);
@@ -50,7 +51,7 @@ userRouter.patch('/users/me', celebrate({
 }), updateUser);
 userRouter.patch('/users/me/avatar', celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().pattern(/https?:\/\/(w{3})?[a-z0-9-]+\.[a-z0-9\S]{2,}/),
+    avatar: Joi.string().pattern(regExpLink),
   }),
 }), updateUserAvatar);
 
