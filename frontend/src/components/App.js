@@ -176,6 +176,7 @@ function App() {
         if (res) {
           setLoggedIn(true);
           localStorage.setItem("token", res.token);
+          setCurrentUser(res._id)
           setEmail(email);
           history.push("/");
         } else {
