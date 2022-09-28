@@ -28,14 +28,14 @@ const createCard = async (req, res, next) => {
 
 const deleteCard = async (req, res, next) => {
   try {
-    const data = await card.findByIdAndRemove(req.params.cardId);
-    if (!data) {
+    const currentCard = await card.findById(req.params.cardId);
+    if (!currentCard) {
       throw new NotFoundError('Передан несуществующий _id карточки');
     }
-    const currentCard = await card.findById(req.params.cardId);
     if (req.user._id !== currentCard.owner.toString()) {
       throw new ForbiddenError('Отказано в доступе');
     }
+    const data = await card.findByIdAndRemove(req.params.cardId);
     res.send(data);
   } catch (e) {
     if (e.name === 'CastError') {
